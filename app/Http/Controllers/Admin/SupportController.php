@@ -16,7 +16,7 @@ class SupportController extends Controller
     public function index(Request $request) {
 
         $supports = $this->service->getAll($request->filter);
-
+dd($supports);
         return view('admin.supports.index', compact('supports'));
     }
 
@@ -40,10 +40,9 @@ class SupportController extends Controller
 
     public function store(StoreUpdateSupport $request, Support $support) {
 
-        $data = $request->all();
-        $data['status'] = 'a';
-
-        $support->create($data);
+        $this->service->new(
+            CreateSupportDTO::makeFromRequest($request )
+        );
 
         return redirect()->route('supports.index');
     }
@@ -57,14 +56,15 @@ class SupportController extends Controller
         return view('admin.supports.edit', compact('support'));
     }
 
-    public function update(Request $request, Support $support, string $id){
-        if(!$support = $support->find($id)){
+    public function update(StoreUpdateSupport $request, Support $support, string $id){
+        
+        $support = $this->service->update(
+            UpdateSupportDTO::makeFromRequest($request)
+        );
+
+        if(!$support){
             return back();
         };
-
-        $support->update($request->only([
-            'subject', 'body'
-        ]));
 
         return redirect()->route('supports.index');
     }
