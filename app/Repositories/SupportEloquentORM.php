@@ -1,6 +1,12 @@
 <?php
 
+namespace App\Repositories;
+
+use App\DTO\CreateSupportDTO;
+use App\DTO\UpdateSupportDTO;
+use App\Models\Support;
 use App\Repositories\SupportRepositoryInterface;
+use stdClass;
 
 class SupportEloquentORM implements SupportRepositoryInterface {
 
@@ -31,7 +37,7 @@ class SupportEloquentORM implements SupportRepositoryInterface {
         return (object) $support->toArray();
     }
         
-    public function delete(string $id): stdClass{
+    public function delete(string $id): void{
         $this->model->findOrFail($id)->delete();
     }
 
