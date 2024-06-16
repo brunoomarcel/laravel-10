@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+// use Illuminate\Validation\Rule; // Adicione esta linha
+
 class StoreUpdateSupport extends FormRequest
 {
     /**

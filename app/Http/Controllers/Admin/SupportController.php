@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUpdateSupport;
 use App\Models\Support;
 use Illuminate\Http\Request;
 use App\Services\SupportService;
+use App\DTO\CreateSupportDTO;
 
 class SupportController extends Controller
 {
@@ -17,7 +18,7 @@ class SupportController extends Controller
     public function index(Request $request) {
 
         $supports = $this->service->getAll($request->filter);
-dd($supports);
+
         return view('admin.supports.index', compact('supports'));
     }
 
